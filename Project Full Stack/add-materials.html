@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Style.css">
+    <title>Add Study Materials</title>
+</head>
+<body>
+    <nav>
+        <div class="nav-left">
+            <div class="nav-logo">
+                <img src="pictures/student.png" alt="Study Materials Portal Logo">
+            </div>
+            <ul>
+                <li><a id="home-link" href="index.html">Home</a></li>
+                <li><a id="materials-link" href="materials.html">Study Materials</a></li>
+                <li><a id="add-materials-link" href="add-materials.html">Add Materials</a></li>
+                <li><a id="contact-link" href="contact.html">Contact Us</a></li>
+            </ul>
+        </div>
+        <div class="nav-right">
+            <ul>
+                <li class="dropdown">
+                    <a id="profile-link" href="profile.html" class="dropbtn">Profile</a>
+                    <div class="dropdown-content">
+                        <a href="profile.html">View Profile</a>
+                        <a href="index.html">Logout</a>
+                    </div>
+                </li>
+                <!-- Add the theme toggle button here -->
+                <li>
+                    <button class="theme-toggle-btn">🌙</button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+        
+    <header class="hero">
+        <div class="hero-content">
+            <h1>Add Study Materials</h1>
+            <p>Contribute to our collection of high-quality study materials.</p>
+        </div>
+    </header>
+
+    <main>
+        <section class="services">
+            <h2>Available Materials</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <img src="material-icon.png" alt="Material Icon" class="card-icon">
+                    <h3>Material 1</h3>
+                    <p>Description of Material 1.</p>
+                    <p>Teacher: John Doe | Price: $10 | Duration: 2 weeks</p>
+                    <button onclick="showMessage('material1')">Register</button>
+                    <div id="material1-message" class="message"></div>
+                </div>
+                <div class="card">
+                    <img src="material-icon.png" alt="Material Icon" class="card-icon">
+                    <h3>Material 2</h3>
+                    <p>Description of Material 2.</p>
+                    <p>Teacher: Jane Smith | Price: $15 | Duration: 3 weeks</p>
+                    <button onclick="showMessage('material2')">Register</button>
+                    <div id="material2-message" class="message"></div>
+                </div>
+                <div class="card">
+                    <img src="material-icon.png" alt="Material Icon" class="card-icon">
+                    <h3>Material 3</h3>
+                    <p>Description of Material 3.</p>
+                    <p>Teacher: Mike Johnson | Price: $20 | Duration: 4 weeks</p>
+                    <button onclick="showMessage('material3')">Register</button>
+                    <div id="material3-message" class="message"></div>
+                </div>
+                <div class="card">
+                    <img src="material-icon.png" alt="Material Icon" class="card-icon">
+                    <h3>Material 4</h3>
+                    <p>Description of Material 4.</p>
+                    <p>Teacher: Sara White | Price: $25 | Duration: 5 weeks</p>
+                    <button onclick="showMessage('material4')">Register</button>
+                    <div id="material4-message" class="message"></div>
+                </div>
+                <div class="card">
+                    <img src="material-icon.png" alt="Material Icon" class="card-icon">
+                    <h3>Material 5</h3>
+                    <p>Description of Material 5.</p>
+                    <p>Teacher: Chris Black | Price: $30 | Duration: 6 weeks</p>
+                    <button onclick="showMessage('material5')">Register</button>
+                    <div id="material5-message" class="message"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 Study Materials Portal. All rights reserved.</p>
+            <ul class="footer-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="materials.html">Study Materials</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="privacy.html">Privacy Policy</a></li>
+            </ul>
+            <div class="social-media">
+                <a href="#"><img src="pictures/facebook.png" alt="Facebook"></a>
+                <a href="#"><img src="pictures/twitter.png" alt="Twitter"></a>
+                <a href="#"><img src="pictures/linkedin.png" alt="LinkedIn"></a>
+            </div>
+        </div>
+    </footer>
+
+    <div  id="loading-spinner" class="loading-spinner">
+        <div class="spinner"></div>
+    </div>
+
+    <script>
+        // Function to toggle between light and dark mode
+        function toggleTheme() {
+            const body = document.body;
+            const currentTheme = body.getAttribute("data-theme") || "light";
+            const newTheme = currentTheme === "light" ? "dark" : "light";
+
+            body.setAttribute("data-theme", newTheme);
+            localStorage.setItem("theme", newTheme);
+            updateButtonState(newTheme);
+        }
+
+        // Function to update button state (active/inactive)
+        function updateButtonState(theme) {
+            const toggleBtn = document.querySelector(".theme-toggle-btn");
+
+            if (toggleBtn) {
+                if (theme === "light") {
+                    toggleBtn.textContent = "🌙"; // Moon icon for dark mode
+                } else {
+                    toggleBtn.textContent = "☀️"; // Sun icon for light mode
+                }
+            }
+        }
+
+        // Load theme on page load
+        function loadTheme() {
+            const savedTheme = localStorage.getItem("theme") || "light";
+            document.body.setAttribute("data-theme", savedTheme);
+            updateButtonState(savedTheme);
+        }
+
+        // Add event listener to the toggle button
+        document.addEventListener("DOMContentLoaded", function () {
+            loadTheme();
+
+            const toggleBtn = document.querySelector(".theme-toggle-btn");
+
+            if (toggleBtn) {
+                toggleBtn.addEventListener("click", toggleTheme);
+            }
+        });
+        function showMessage(materialId) {
+            const messageDiv = document.getElementById(`${materialId}-message`);
+            messageDiv.innerHTML = `
+                <p style="color: green;" class="success-message">You have successfully registered for this material!</p>
+            `;
+
+            // Clear the message after 5 seconds (optional)
+            setTimeout(() => {
+                messageDiv.innerHTML = "";
+            }, 5000);
+        }
+
+        // Function to set the active link based on the current page
+        function setActiveLink() {
+            const currentPath = window.location.pathname.split('/').pop();
+            const linkIds = {
+                'index.html': 'home-link',
+                'materials.html': 'materials-link',
+                'add-materials.html': 'add-materials-link',
+                'contact.html': 'contact-link',
+                'profile.html': 'profile-link'
+            };
+            const activeLinkId = linkIds[currentPath];
+            if (activeLinkId) {
+                const activeLink = document.getElementById(activeLinkId);
+                if (activeLink) {
+                    activeLink.classList.add('active');
+                }
+            }
+        }
+
+        // Call the function when the page loads
+        document.addEventListener('DOMContentLoaded', setActiveLink);
+    </script>
+</body>
+</html>

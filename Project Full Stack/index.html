@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Style.css">
+    <title>Study Materials Portal</title>
+</head>
+<body>
+    <nav>
+        <div class="nav-left">
+            <div class="nav-logo">
+                <img src="pictures/student.png" alt="Study Materials Portal Logo">
+            </div>
+            <ul>
+                <li><a id="home-link" href="index.html">Home</a></li>
+                <li><a id="materials-link" href="materials.html">Study Materials</a></li>
+                <li><a id="add-materials-link" href="add-materials.html">Add Materials</a></li>
+                <li><a id="contact-link" href="contact.html">Contact Us</a></li>
+            </ul>
+        </div>
+        <div class="nav-right">
+            <ul>
+                <li class="dropdown">
+                    <a id="profile-link" href="profile.html" class="dropbtn">Profile</a>
+                    <div class="dropdown-content">
+                        <a href="profile.html">View Profile</a>
+                        <a href="index.html">Logout</a>
+                    </div>
+                </li>
+                <!-- Add the theme toggle button here -->
+                <li>
+                    <button class="theme-toggle-btn">🌙</button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content">
+            <h1>Welcome to Our Study Materials Portal</h1>
+            <p>Access high-quality study materials tailored to your needs.</p>
+            <a style="margin-right: 80px;" href="materials.html" class="hero-button">Explore Materials</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="services">
+            <h2>Our Services</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <img src="material-icon.png" alt="Material Icon" class="card-icon">
+                    <h3>Access to High-Quality Study Materials</h3>
+                    <p>Our materials are curated by experienced educators and cover a wide range of subjects.</p>
+                </div>
+                <div class="card">
+                    <img src="material-icon.png" alt="Material Icon" class="card-icon">
+                    <h3>Convenient Online Access</h3>
+                    <p>Access your study materials anytime, anywhere. Our platform is designed to be user-friendly.</p>
+                </div>
+                <div class="card">
+                    <img src="material-icon.png" alt="Material Icon" class="card-icon">
+                    <h3>Materials Tailored to Different Subjects and Levels</h3>
+                    <p>Whether you're in high school, college, or pursuing professional certifications, we have materials tailored to your needs.</p>
+                </div>
+                <div class="card">
+                    <img src="material-icon.png" alt="Material Icon" class="card-icon">
+                    <h3>Support from Experienced Educators</h3>
+                    <p>Get support from our team of experienced educators who are available to answer your questions.</p>
+                </div>
+                <div class="card">
+                    <img src="material-icon.png" alt="Material Icon" class="card-icon">
+                    <h3>Interactive Learning Tools</h3>
+                    <p>Engage with interactive quizzes, flashcards, and other tools to enhance your learning experience.</p>
+                </div>
+                <div class="card">
+                    <img src="material-icon.png" alt="Material Icon" class="card-icon">
+                    <h3>Regular Updates and New Content</h3>
+                    <p>We regularly update our content to ensure you have access to the latest information and resources.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 Study Materials Portal. All rights reserved.</p>
+            <ul class="footer-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="materials.html">Study Materials</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="privacy.html">Privacy Policy</a></li>
+            </ul>
+            <div class="social-media">
+                <a href="#"><img src="pictures/facebook.png" alt="Facebook"></a>
+                <a href="#"><img src="pictures/twitter.png" alt="Twitter"></a>
+                <a href="#"><img src="pictures/linkedin.png" alt="LinkedIn"></a>
+            </div>
+        </div>
+    </footer>
+
+    <div id="loading-spinner" class="loading-spinner">
+        <div class="spinner"></div>
+    </div>
+
+    <script>
+        // Function to toggle between light and dark mode
+        function toggleTheme() {
+            const body = document.body;
+            const currentTheme = body.getAttribute("data-theme") || "light";
+            const newTheme = currentTheme === "light" ? "dark" : "light";
+
+            body.setAttribute("data-theme", newTheme);
+            localStorage.setItem("theme", newTheme);
+            updateButtonState(newTheme);
+        }
+
+        // Function to update button state (active/inactive)
+        function updateButtonState(theme) {
+            const toggleBtn = document.querySelector(".theme-toggle-btn");
+
+            if (toggleBtn) {
+                if (theme === "light") {
+                    toggleBtn.textContent = "🌙"; // Moon icon for dark mode
+                } else {
+                    toggleBtn.textContent = "☀️"; // Sun icon for light mode
+                }
+            }
+        }
+
+        // Load theme on page load
+        function loadTheme() {
+            const savedTheme = localStorage.getItem("theme") || "light";
+            document.body.setAttribute("data-theme", savedTheme);
+            updateButtonState(savedTheme);
+        }
+
+        // Add event listener to the toggle button
+        document.addEventListener("DOMContentLoaded", function () {
+            loadTheme();
+
+            const toggleBtn = document.querySelector(".theme-toggle-btn");
+
+            if (toggleBtn) {
+                toggleBtn.addEventListener("click", toggleTheme);
+            }
+        });
+         // Function to set the active link based on the current page
+         function setActiveLink() {
+            const currentPath = window.location.pathname.split('/').pop();
+            const linkIds = {
+                'index.html': 'home-link',
+                'materials.html': 'materials-link',
+                'add-materials.html': 'add-materials-link',
+                'contact.html': 'contact-link',
+                'profile.html': 'profile-link'
+            };
+            const activeLinkId = linkIds[currentPath];
+            if (activeLinkId) {
+                const activeLink = document.getElementById(activeLinkId);
+                if (activeLink) {
+                    activeLink.classList.add('active');
+                }
+            }
+        }
+
+        // Call the function when the page loads
+        document.addEventListener('DOMContentLoaded', setActiveLink);
+    </script>
+</body>
+</html>

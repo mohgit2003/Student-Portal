@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Style.css">
+    <title>Login</title>
+</head>
+<body>
+    <nav>
+        <div class="nav-left">
+            <div class="nav-logo">
+                <img src="pictures/student.png" alt="Study Materials Portal Logo">
+            </div>
+            <ul>
+                <li><a id="home-link" href="index.html">Home</a></li>
+                <li><a id="materials-link" href="materials.html">Study Materials</a></li>
+                <li><a id="add-materials-link" href="add-materials.html">Add Materials</a></li>
+                <li><a id="contact-link" href="contact.html">Contact Us</a></li>
+            </ul>
+        </div>
+        <div class="nav-right">
+            <ul>
+                <li class="dropdown">
+                    <a id="profile-link" href="profile.html" class="dropbtn">Profile</a>
+                    <div class="dropdown-content">
+                        <a href="profile.html">View Profile</a>
+                        <a href="index.html">Logout</a>
+                    </div>
+                </li>
+                <!-- Add the theme toggle button here -->
+                <li>
+                    <button class="theme-toggle-btn">🌙</button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content">
+            <h1>Login</h1>
+            <p>Welcome back! Please log in to access your account.</p>
+        </div>
+    </header>
+
+    <main>
+        <section class="services">
+            <div class="card">
+                <form class="login-form" onsubmit="showLoginMessage(event)">
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                    </div>
+                    <button style="margin-right: 80px;" type="submit" class="hero-button">Login</button>
+                    <p style="margin-left: 66px;" class="register-link">Don't have an account? <a href="register.html">Register here</a>.</p>
+                </form>
+                <div id="login-message" class="message"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 Study Materials Portal. All rights reserved.</p>
+            <ul class="footer-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="materials.html">Study Materials</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="privacy.html">Privacy Policy</a></li>
+            </ul>
+            <div class="social-media">
+                <a href="#"><img src="pictures/facebook.png" alt="Facebook"></a>
+                <a href="#"><img src="pictures/twitter.png" alt="Twitter"></a>
+                <a href="#"><img src="pictures/linkedin.png" alt="LinkedIn"></a>
+            </div>
+        </div>
+    </footer>
+
+    <div id="loading-spinner" class="loading-spinner">
+        <div class="spinner"></div>
+    </div>
+
+    <script>
+        // Function to toggle between light and dark mode
+        function toggleTheme() {
+            const body = document.body;
+            const currentTheme = body.getAttribute("data-theme") || "light";
+            const newTheme = currentTheme === "light" ? "dark" : "light";
+
+            body.setAttribute("data-theme", newTheme);
+            localStorage.setItem("theme", newTheme);
+            updateButtonState(newTheme);
+        }
+
+        // Function to update button state (active/inactive)
+        function updateButtonState(theme) {
+            const toggleBtn = document.querySelector(".theme-toggle-btn");
+
+            if (toggleBtn) {
+                if (theme === "light") {
+                    toggleBtn.textContent = "🌙"; // Moon icon for dark mode
+                } else {
+                    toggleBtn.textContent = "☀️"; // Sun icon for light mode
+                }
+            }
+        }
+
+        // Load theme on page load
+        function loadTheme() {
+            const savedTheme = localStorage.getItem("theme") || "light";
+            document.body.setAttribute("data-theme", savedTheme);
+            updateButtonState(savedTheme);
+        }
+
+        // Add event listener to the toggle button
+        document.addEventListener("DOMContentLoaded", function () {
+            loadTheme();
+
+            const toggleBtn = document.querySelector(".theme-toggle-btn");
+
+            if (toggleBtn) {
+                toggleBtn.addEventListener("click", toggleTheme);
+            }
+        });
+        function showLoginMessage(event) {
+            event.preventDefault(); // Prevent the form from submitting
+
+            // Get user input (for demonstration purposes)
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            // Save user data to localStorage (for demonstration purposes)
+            const user = {
+                email: email,
+                fullName: "John Doe", // Replace with actual data from a database in a real app
+                username: "johndoe123", // Replace with actual data from a database in a real app
+                phone: "123-456-7890" // Replace with actual data from a database in a real app
+            };
+            localStorage.setItem("user", JSON.stringify(user));
+
+            // Display the confirmation message
+            const loginMessage = document.getElementById("login-message");
+            loginMessage.innerHTML = `
+                <p class="success-message">You have successfully logged in! Redirecting to your profile...</p>
+            `;
+
+            // Redirect to the profile page after 3 seconds
+            setTimeout(() => {
+                window.location.href = "profile.html";
+            }, 3000);
+        }
+        // Function to set the active link based on the current page
+        function setActiveLink() {
+            const currentPath = window.location.pathname.split('/').pop();
+            const linkIds = {
+                'index.html': 'home-link',
+                'materials.html': 'materials-link',
+                'add-materials.html': 'add-materials-link',
+                'contact.html': 'contact-link',
+                'profile.html': 'profile-link'
+            };
+            const activeLinkId = linkIds[currentPath];
+            if (activeLinkId) {
+                const activeLink = document.getElementById(activeLinkId);
+                if (activeLink) {
+                    activeLink.classList.add('active');
+                }
+            }
+        }
+
+        // Call the function when the page loads
+        document.addEventListener('DOMContentLoaded', setActiveLink);
+    </script>
+</body>
+</html>*
